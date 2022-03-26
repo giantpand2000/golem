@@ -98,7 +98,8 @@ async fn app(
 
 // Run our application!
 fn main() {
-    run_gl(Settings::default(), |window, gfx, events| async move {
+    run(Settings::default(), |window, events| async move {
+        let gfx = unsafe { glow::Context::from_loader_function(|ptr| window.get_proc_address(ptr)) };
         app(window, gfx, events).await.unwrap()
     });
 }

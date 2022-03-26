@@ -203,17 +203,17 @@ impl ShaderProgram {
             use UniformValue::*;
             unsafe {
                 match uniform {
-                    Int(x) => gl.uniform_1_i32(location, x),
-                    IVector2([x, y]) => gl.uniform_2_i32(location, x, y),
-                    IVector3([x, y, z]) => gl.uniform_3_i32(location, x, y, z),
-                    IVector4([x, y, z, w]) => gl.uniform_4_i32(location, x, y, z, w),
-                    Float(x) => gl.uniform_1_f32(location, x),
-                    Vector2([x, y]) => gl.uniform_2_f32(location, x, y),
-                    Vector3([x, y, z]) => gl.uniform_3_f32(location, x, y, z),
-                    Vector4([x, y, z, w]) => gl.uniform_4_f32(location, x, y, z, w),
-                    Matrix2(mat) => gl.uniform_matrix_2_f32_slice(location, false, &mat),
-                    Matrix3(mat) => gl.uniform_matrix_3_f32_slice(location, false, &mat),
-                    Matrix4(mat) => gl.uniform_matrix_4_f32_slice(location, false, &mat),
+                    Int(x) => gl.uniform_1_i32(location.as_ref(), x),
+                    IVector2([x, y]) => gl.uniform_2_i32(location.as_ref(), x, y),
+                    IVector3([x, y, z]) => gl.uniform_3_i32(location.as_ref(), x, y, z),
+                    IVector4([x, y, z, w]) => gl.uniform_4_i32(location.as_ref(), x, y, z, w),
+                    Float(x) => gl.uniform_1_f32(location.as_ref(), x),
+                    Vector2([x, y]) => gl.uniform_2_f32(location.as_ref(), x, y),
+                    Vector3([x, y, z]) => gl.uniform_3_f32(location.as_ref(), x, y, z),
+                    Vector4([x, y, z, w]) => gl.uniform_4_f32(location.as_ref(), x, y, z, w),
+                    Matrix2(mat) => gl.uniform_matrix_2_f32_slice(location.as_ref(), false, &mat),
+                    Matrix3(mat) => gl.uniform_matrix_3_f32_slice(location.as_ref(), false, &mat),
+                    Matrix4(mat) => gl.uniform_matrix_4_f32_slice(location.as_ref(), false, &mat),
                 }
             }
 
