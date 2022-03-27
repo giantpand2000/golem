@@ -82,10 +82,7 @@ impl Texture {
         self.width = width;
         self.height = height;
 
-        let format = match color {
-            ColorFormat::RGB => glow::RGB,
-            ColorFormat::RGBA => glow::RGBA,
-        };
+        let format = color.gl_format();
         let gl = &self.ctx.0.gl;
         unsafe {
             gl.bind_texture(glow::TEXTURE_2D, Some(self.id));
@@ -137,10 +134,7 @@ impl Texture {
             y + height <= self.height,
             "The region over-ran the height of the texture"
         );
-        let format = match color {
-            ColorFormat::RGB => glow::RGB,
-            ColorFormat::RGBA => glow::RGBA,
-        };
+        let format = color.gl_format();
         let required_data_len = width * height * color.bytes_per_pixel();
         assert!(data.len() >= required_data_len as usize);
         let gl = &self.ctx.0.gl;

@@ -128,6 +128,10 @@ pub enum ColorFormat {
     RGB,
     /// One red, blue, green, then alpha (transparency)
     RGBA,
+    Custom {
+        format: u32,
+        bytes_per_pixel: u32,
+    }
 }
 
 impl ColorFormat {
@@ -135,6 +139,7 @@ impl ColorFormat {
         match self {
             ColorFormat::RGBA => 4,
             ColorFormat::RGB => 3,
+            ColorFormat::Custom {  bytes_per_pixel,.. } => *bytes_per_pixel,
         }
     }
 
@@ -142,6 +147,7 @@ impl ColorFormat {
         match self {
             ColorFormat::RGB => glow::RGB,
             ColorFormat::RGBA => glow::RGBA,
+            ColorFormat::Custom { format,.. } => *format
         }
     }
 }
