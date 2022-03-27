@@ -51,6 +51,12 @@ impl Texture {
         self.height
     }
 
+    pub fn max_texture_size(&self) -> u32 {
+        unsafe {
+            self.ctx.0.gl.get_parameter_i32(glow::MAX_TEXTURE_SIZE) as _
+        }
+    }
+
     /// Set the image data associated with this texture
     ///
     /// `width` and `height` must be less than the maximum texture size of the
@@ -65,12 +71,13 @@ impl Texture {
     pub fn set_image(&mut self, data: Option<&[u8]>, width: u32, height: u32, color: ColorFormat) {
         assert!(width > 0, "The texture width was 0",);
         assert!(height > 0, "The texture width was 0",);
+        let max_texture_size = self.max_texture_size();
         assert!(
-            width < glow::MAX_TEXTURE_SIZE,
+            width < max_texture_size,
             "The texture width was bigger than the maximum size"
         );
         assert!(
-            height < glow::MAX_TEXTURE_SIZE,
+            height < max_texture_size,
             "The texture height was bigger than the maximum size"
         );
         if let Some(data) = data {
